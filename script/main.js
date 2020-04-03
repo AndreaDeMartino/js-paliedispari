@@ -1,7 +1,7 @@
 // Palidromo
 alert('Benvenuto al gioco del Palindromo');
 
-var userWord = prompt('Inserisci una parola, non preoccuparti del case sensitive').toLowerCase();
+var userWord = prompt('Inserisci una parola, non preoccuparti del case sensitive').toLowerCase().trim();
 
 if ( userWord == (palindromo(userWord)) ){
   alert('La parola digitata è palindroma');
@@ -22,35 +22,26 @@ function palindromo (word){
 // Pari e Dispari
 alert('Benvenuto al gioco Pari o Dispari');
 
-var userChoice = prompt('Scegli pari o dispari').toUpperCase();
-console.log('Scelta utente: ' + userChoice);
-
-// Respingo l'utente se la scelta è un numero o se è diversa da pari / dispari, con fix su Case Sensitive
-if  ( (userChoice == isNaN) || 
-    ((userChoice !== 'PARI' && userChoice !== 'DISPARI'))
-    ){
-  alert('Scelta errata');
-} 
-
-else{
-
-var userNumber = parseInt(prompt('Scegli un numero da 1 a 5'));
-console.log('Numero Utente: ' + userNumber);
-
-// Verifico che la scelta sia coerente con il range richiesto
-if (userNumber == 0 || userNumber < 1 || userNumber > 5){
-  alert('Scelta errata');
+// Respingo l'utente se la scelta è diversa da pari / dispari, con fix su Case Sensitive
+while ( userChoice !== 'PARI' && userChoice !== 'DISPARI') {
+  var userChoice = prompt('Scegli pari o dispari').toUpperCase();
 }
 
-else{
+console.log('Scelta utente: ' + userChoice);
 
-var computerNumber = randomNumber();
+// Verifico che la scelta sia coerente con il range richiesto
+while ( (userNumber < 1 || userNumber > 5) || isNaN(userNumber) ) {
+  var userNumber = parseInt( prompt('Scegli un numero da 1 a 5') );
+}
+
+console.log('Numero Utente: ' + userNumber);
+
+var computerNumber = randomNumber(1,5);
 console.log('Numero Computer: ' + computerNumber);
 alert('Il computer ha scelto il numero: ' + computerNumber);
 
-function randomNumber (){
-  var number = Math.floor(Math.random() * 5 + 1);
-  return number;
+function randomNumber (min, max){
+  return Math.floor( Math.random() * (max - min + 1) ) + min;
 }
 
 var somma = userNumber + computerNumber;
@@ -70,13 +61,10 @@ if (pariDispari(somma) == userChoice) {
 }
 
 function pariDispari (numberCheck){
-  var check = '';
   if ( (numberCheck % 2) == 0 ){
-    check = 'PARI';
-  } else{
-    check = 'DISPARI';
-  }
-  return check;
+    return 'PARI';
+  } 
+  return 'DISPARI';
+
 }
-}
-}
+
